@@ -1,0 +1,27 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+
+    <section class="section">
+    <h1 class="title">Liste des questions</h1>
+    
+    <div class="tile is-ancestor">
+        <div class="tile is-parent is-3"></div>
+    {% if question_list %}
+        <ul class="tile is-parent is-vertical is-6">
+        {% for question in question_list %}
+            <li class="tile is-child notification is-primary box"><h2 class="title is-4"><a href="{% url 'polling:questionDetail' question.id %}">{{ question.question_text }}</a></h2></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Pas de question disponible</p>
+    {% endif %}
+        <div class="tile is-parent is-3"></div>
+    </div>
+    </section>
+
+    <section class="section">
+        <button class="button is-primary"><a href="{%url 'polling:questionNew'%}">Créer une nouvelle question</a></button>
+    </section>
+</div>
+{% endblock %}

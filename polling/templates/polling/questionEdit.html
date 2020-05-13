@@ -1,0 +1,20 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+    <h1>Nouvelle question</h1>
+    <form method="POST" class="">{% csrf_token %}
+    {{ choice_form.management_form }}
+        <fieldset>
+            {%for field in form%}
+                <div>{{field.label}} : {{field}}</div>
+            {%endfor%}
+        </fielset>
+        <fieldset>
+            {{{%for field in choice_form%}
+                <div>{{field.label}} {{field}}</div>
+            {%endfor%} }}  
+        </fielset>
+        <button type="submit">Créer</button>
+    </form>
+
+    <a href="{% url 'polling:questionList' %}">Retour à la liste</a>
+{%endblock%}

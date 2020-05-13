@@ -1,0 +1,42 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+    <h1 class="title">{{ question.question_text }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <section class="section">
+        <form class="field" action="{% url 'polling:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input class="radio" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label class="label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+        <input class="button is-primary" type="submit" value="Vote">
+        </form>
+    </section>
+
+    <section class="section has-text-centered">
+        <table class="table is-striped is-hoverable">
+        <h2 class="title is-4">Résultats actuels du sondage</h2>
+            <thead>
+                <tr>
+                    <th>Choix</th>
+                    <th>Votes</th>
+                </tr>
+                <tr>
+            </thead>
+            <tbody>
+                {% for choice in question.choice_set.all %}
+                    <tr>
+                    <td>{{ choice.choice_text }}</td> 
+                    <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+                    </tr>
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <button class="button is-primary"><a href="{% url 'polling:questionList' %}">Retour à la liste</a></button>
+</div>
+{%endblock%}
