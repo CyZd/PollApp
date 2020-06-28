@@ -4,6 +4,7 @@ from .models import *
 from django.forms import inlineformset_factory
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm, TextInput
 
 
 class ChoiceForm(forms.ModelForm):
@@ -12,19 +13,30 @@ class ChoiceForm(forms.ModelForm):
         model=Choice
         fields = ('choice_text',)
         # fields = '__all__'
+        labels={
+            'choice_text':('Texte du choix'),
+        }
 
 
 class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        exclude = ['question_group','question_number']
+        exclude = ['question_group','question_number','user_group']
+        labels={
+            'question_text':('Texte de la question'),
+            'has_multiple_choices':('A choix multiples'),
+        }
 
 class QuestionGroupForm(forms.ModelForm):
 
     class Meta:
         model = QuestionGroup
-        fields = ('name','max_responders','created')
+        exclude = ('max_responders','user_group','creator')
+        labels={
+            'name':('Nom du sondage'),
+            'created':('Date de publication'),
+        }
 
 class InvitationForm(forms.ModelForm):
 
