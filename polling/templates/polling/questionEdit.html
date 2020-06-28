@@ -1,20 +1,15 @@
 {% extends 'polling/base.html' %}
 {% block content %}
-    <h1>Nouvelle question</h1>
+
+    <h1>Editer la question</h1>
     <form method="POST" class="">{% csrf_token %}
-    {{ choice_form.management_form }}
-        <fieldset>
-            {%for field in form%}
-                <div>{{field.label}} : {{field}}</div>
-            {%endfor%}
+
+        <fieldset> 
+            {{question}} 
+            {{formset.as_p}}
         </fielset>
-        <fieldset>
-            {{{%for field in choice_form%}
-                <div>{{field.label}} {{field}}</div>
-            {%endfor%} }}  
-        </fielset>
-        <button type="submit">Créer</button>
+        <button type="submit">Modifier</button>
     </form>
 
-    <a href="{% url 'polling:questionList' %}">Retour à la liste</a>
+    <a href="{% url 'polling:userGroupsDetail' user_group=user.groups.all.0 group_name=group.name%}">Retour à la liste des questions</a>
 {%endblock%}

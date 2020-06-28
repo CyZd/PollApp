@@ -1,0 +1,88 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+    <section class="section is-medium">
+    <h1 class="title">{{ group.name }}</h1>
+
+    {% if user.is_authenticated %}
+        <div class="tile is-ancestor">
+            <div class="tile is-parent"></div>
+                <div class="tile is-parent field is-grouped">
+                    
+                    <p class="control">
+                        <button class="button is-success"><a href="{% url 'polling:userGroupsNewQuestion' user_group=group.creator  group_name=group.name%}">Ajouter une question</a></button>
+                    </p>
+                    <p class="control">  
+                        <button class="button is-success"><a href="{%url 'polling:userGroupsEdit' user_group=group.creator  group_name=group.name%}">Modifier le sondage</a></button>
+                    </p>
+                    <p class="control">
+                        <button class="button is-primary"><a href="{%url 'polling:userGroupsInvite' user_group=group.creator  group_name=group.name%}">Inviter à participer au sondage</a></button>
+                    </p>
+                    <p class="control">  
+                        <button class="button is-danger"><a href="{%url 'polling:userGroupsDelete' user_group=group.creator  group_name=group.name%}">Supprimer le sondage</a></button>
+                    </p>
+                </div>
+            <div class="tile is-parent"></div>
+        </div>
+    {%endif%}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <div class="tile is-ancestor">
+        <ul class="tile is-parent is-vertical">
+        {%for question in group.question_set.all%}
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'polling:questionDetail' user_group=group.creator group_name=group.name question=question.id %}"><li class="tile is-child notification is-primary box hoverable"><h2 class="title is-4">{{ question.question_text }}</h2></li></a>
+                <br/>
+                {%elif not question.question_number%}
+                <a href="{% url 'polling:questionDetail' user_group=group.creator group_name=group.name question=question.id %}"><li class="tile is-child notification is-primary box hoverable"><h2 class="title is-4">{{ question.question_text }}</h2></li></a>
+                <br/>
+                {%else%}
+                <li class="tile is-child notification is-primary box hoverable"><h2 class="title is-4">{{ question.question_text }}</h2></li>
+                <br/>
+
+            {%endif%}
+        {%endfor%}
+        </ul>
+    </div>
+
+
+        {%if invite_link%}
+            Pour inviter d'autres personnes à voter, partagez ce lien: {{invite_link}}
+        {%endif%}
+        {% if user.is_authenticated %}
+            <br/>
+            <table class="table is-striped is-hoverable">
+            <h2 class="title is-4">Résultats actuels du sondage</h2>
+            {%for question in group.question_set.all%}
+                <thead>
+                    <tr>
+                        <th>{{ question.question_text }}</th> 
+                        <th>Résultats</th>
+                    </tr>
+                    <tr>
+                </thead>
+                <tbody>
+                        {% for choice in question.choice_set.all %}
+                        <tr>
+                        <td>{{ choice.choice_text }}</td> 
+                        <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+                        {%endfor%}
+                        </tr>
+                {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+
+
+                    <button class="button is-info"><a href="{% url 'polling:userGroups' group.creator  %}">Retour</a></button>
+
+
+        {%endif%}
+
+    </section>
+    
+
+</div>
+{%endblock%}

@@ -1,0 +1,51 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+
+    <div class="container has-text-centered">
+        <section class="section">
+            <div class="tile-is-ancestor">
+                <div class="tile is-2"></div>
+                <div class="tile is-parent is-vertical">
+                    {% if user.is_authenticated %}
+                    <section class="section hoverable">
+                        <a href="{% url 'polling:userGroupsNew' user_group=user.groups.all.0%}"><div class="tile is-child notification is-primary box"><h2 class="title">Nouveau sondage</h2></div>
+                        <div class="notification is-primary is-light box">
+                            <p>Vous pouvez créer jusqu'à trois questionnaires de dix questions chacuns</p>
+                        </div></a>
+                    </section>
+                    <section class="section hoverable">
+                        <a href="{% url 'polling:userGroups' user.groups.all.0%}"><div class="tile is-child notification is-primary box"><h2 class="title">Mes sondages</h2></div>
+                        <div class="notification is-primary is-light box">
+                            <p>Modifiez vos sondages existants, et regarder les résultats</p>
+                        </div></a>
+                    </section>
+                    <section class="section hoverable">
+                        <a href="{% url 'polling:logout' %}"><div class="tile is-child notification is-danger box"><h2 class="title">Se déconnecter</h2></div></a>
+                    </section>
+                    {%else%}
+                    <section class="section hoverable">
+                        <a href="{% url 'polling:signup'%}"><div class="tile is-child notification is-primary box"><h2 class="title is-4">S'inscrire</h2></div>
+                        <div class="notification is-primary is-light box">
+                            <p>Inscrivez vous pour créer de nouveaux sondages. Votre e-mail ne sera pas conservé.</p>
+                        </div></a>
+                    </section>
+                    <section class="section hoverable">
+                        <a href="{% url 'polling:login' %}"><div class="tile is-child notification is-primary box"><h2 class="title is-4">Se connecter</h2></div>
+                        <div class="notification is-primary is-light box">
+                            <p>Déjà inscrit? Retrouvez ici les sondages que vous avez crée</p>
+                        </div></a>
+                    </section>
+                    <section class="section">
+                        <div class="notification is-warning is-light box">
+                            <p>Si vous avez reçu un lien pour répondre à un sondage, entrez ce lien dans la barre d'adresse de votre navigateur pour être dirigé au bon endroit.</p>
+                        </div></a>
+                    </section>
+                    {% endif %}
+                </div>
+                <div class="tile is-2"></div>
+            </div>
+        <section>
+    </div>
+    
+    
+{%endblock%}

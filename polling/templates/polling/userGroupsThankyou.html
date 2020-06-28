@@ -1,0 +1,39 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+    
+
+    <section class="section is-medium has-text-centered">
+
+    <h3 class="subtitle">Merci d'avoir participé au sondage "{{ group.name }}"</h3>
+
+
+            <p>Vos réponses ont bien été enregistrées.</p>
+            <p>Avant de fermer cette page, vous pouvez observer les résultats:</p>  
+
+
+        <br/>
+            <table class="table is-striped is-hoverable">
+            {%for question in group.question_set.all%}
+                <thead>
+                    <tr>
+                        <th>{{ question.question_text }}</th> 
+                        <th>Résultats</th>
+                    </tr>
+                    <tr>
+                </thead>
+                <tbody>
+                        {% for choice in question.choice_set.all %}
+                        <tr>
+                        <td>{{ choice.choice_text }}</td> 
+                        <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+                        {%endfor%}
+                        </tr>
+                {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+    </section>
+    
+</div>
+{%endblock%}

@@ -1,0 +1,26 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+
+    <div class="container has-text-centered">
+        <section class="section">
+            <div class="tile-is-ancestor">
+                <div class="tile is-2"></div>
+                <div class="tile is-parent is-vertical">
+                    
+                    <section class="section hoverable">
+                        <div class="tile is-child notification is-primary box"><h2 class="title">Page introuvable</h2></div>
+                        <div class="notification is-primary is-light box">
+                            <p>La page que vous cherchez n'existe pas</p>
+                        </div>
+                    </section>
+
+
+                </div>
+               
+            </div>
+        <section>
+        <button class="button is-primary"><a href="{%url 'polling:portal'%}">Retour à l'accueil</a></button>
+    </div>
+    
+    
+{%endblock%}

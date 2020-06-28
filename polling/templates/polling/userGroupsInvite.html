@@ -1,0 +1,17 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+    <h1>Nouvelle question</h1>
+    <form method="POST" class="">{% csrf_token %}
+    {%if invite_link%}
+        Pour inviter d'autres personnes à voter, partagez ce lien: {{invite_link}}
+    {%endif%}
+
+        <fieldset>
+            {{InvitationForm}} 
+        </fielset>
+        <button type="submit">Inviter</button>
+        
+    </form>
+
+    {% comment %} <a href="{% url 'polling:userGroupsDetail' user_group=user.groups.all.0 group_name=group.name%}">Retour à la liste des questions</a> {% endcomment %}
+{%endblock%}

@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('polling.urls'))
 ]
+
+handler404 = 'polling.views.error_404'

@@ -1,0 +1,15 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+    <h1>Nouvelle question</h1>
+    <form method="POST" class="">{% csrf_token %}
+
+        <fieldset>
+            {{question}} 
+            {{formset.as_p}} 
+        </fielset>
+        <button type="submit">Créer</button>
+    </form>
+
+    
+    <button class="button is-info"><a href="{% url 'polling:userGroupsDetail' user_group=user.groups.all.0 group_name=group.name%}">Retour</a></button>
+{%endblock%}

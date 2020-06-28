@@ -1,0 +1,60 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+
+    <section class="section is-medium">
+        <h1 class="title">Mes sondages</h1>
+{% comment %} 
+        <div class="col-6 align-left">
+
+        <i id="search-icon" class="fas fa-search"></i>
+        <input id="user-input" placeholder="Rechercher">
+        </div>
+
+        <div id="replaceable-content" class="col-6">
+            {% include 'polling/search.html' %}
+        </div> {% endcomment %}
+        {%if errorMessage%}
+        <div class="notification is-primary is-danger box">
+            <p>{{errorMessage}}</p>
+        </div>
+        {%endif%}
+        
+
+        <div class="tile is-ancestor">
+        
+        {% if groupList %}
+            <div class="tile is-parent is-vertical">
+            {% for group in groupList %}
+                <br/>
+                <section class="hoverable">
+                    <a href="{%url 'polling:userGroupsDetail' user_group=group.creator  group_name=group.name%}"><div class="tile is-child notification is-primary box"><h2 class="title is-4">{{ group.name }}</h2></div></a>
+                    <div class="notification is-primary is-light box">
+                        {%for question in group.question_set.all%}
+                        <p>- {{question.question_text}}</p>
+                        {%empty%}
+                        <p>Ce sondage ne comporte aucune question pour l'instant</p>
+                        {%endfor%}
+                    </div>
+                    <br/>
+                </section>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="notification is-warning">
+                <p>Vous n'avez pas encore crée de sondage</p>
+                <p>Vous pouvez créer jusqu'à trois sondages de dix questions chacuns</p>
+            </div>
+        {% endif %}
+
+        </div>
+        {% if user.is_authenticated %}
+    {% comment %} </section>
+    <section class="section"> {% endcomment %}
+        <button class="button is-info"><a href="{%url 'polling:portal'%}">Retour à l'accueil</a></button>
+        <button class="button is-primary"><a href="{% url 'polling:userGroupsNew' user_group=request.user.id %}">Créer un sondage</a></button>
+    </section>
+
+    {%endif%}
+</div>
+{% endblock %}

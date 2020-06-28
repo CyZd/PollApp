@@ -4,12 +4,22 @@
 
     <section class="section">
     <h1 class="title">Liste des questions</h1>
+
+    <div class="col-6 align-left">
+    <h3 class="subtitle">Rechercher une question</h1>
+    <i id="search-icon" class="fas fa-search"></i>
+    <input id="user-input" placeholder="Rechercher">
+    </div>
+
+    <div id="replaceable-content" class="col-6">
+        {% include 'polling/search.html' %}
+    </div>
     
     <div class="tile is-ancestor">
         <div class="tile is-parent is-3"></div>
-    {% if question_list %}
+    {% if questions %}
         <ul class="tile is-parent is-vertical is-6">
-        {% for question in question_list %}
+        {% for question in questions %}
             <li class="tile is-child notification is-primary box"><h2 class="title is-4"><a href="{% url 'polling:questionDetail' question.id %}">{{ question.question_text }}</a></h2></li>
         {% endfor %}
         </ul>

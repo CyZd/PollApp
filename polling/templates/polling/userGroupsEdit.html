@@ -1,0 +1,14 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+
+    <h1>Modifier le sondage</h1>
+    <form method="POST" class="">{% csrf_token %}
+
+        <fieldset>
+            {{GroupForm}} 
+        </fielset>
+        <button type="submit">Modifier</button>
+    </form>
+
+    <a href="{% url 'polling:userGroups' user.id%}">Retour à la liste</a>
+{%endblock%}

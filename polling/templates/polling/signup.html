@@ -1,0 +1,16 @@
+{% extends 'polling/base.html' %}
+{% block content %}
+<div class="container has-text-centered">
+    <section class="section is-medium">
+      <h2 class="title">Créer un profil</h2>
+      {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">S'enregistrer</button>
+        </form>
+
+        <button class="button is-primary"><a href="{%url 'polling:portal'%}">Retour à l'accueil</a></button>
+    </section>
+</div>
+{%endblock%}
