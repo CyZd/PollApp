@@ -70,7 +70,7 @@ def userGroups(request,user_group):
 def userGroupsDetail(request,user_group,group_name):
     invite_code=request.session.get('invite_access_code')
 
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated and not invite_code:
         raise Http404("Poll does not exist")
         return render(request,'polling/portal.html')
     else:
