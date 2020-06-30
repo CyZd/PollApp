@@ -281,9 +281,10 @@ def userGroupsInvite(request,user_group,group_name):
 def userGroupsParticipate(request,slug):
     try:
         code=Invitation.objects.get(code__exact=slug)
+        print(code)
         request.session['invite_access_code']=code.code
     except(KeyError, Invitation.DoesNotExist):
-        raise Http404("Poll does not exist")
+        raise Http404("Can't find code")
         return render(request,'polling/portal.html')
     
     try:
