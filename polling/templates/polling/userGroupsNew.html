@@ -1,14 +1,21 @@
 {% extends 'polling/base.html' %}
 {% block content %}
+    <div class="container has-text-centered">
+    
+        <section class="section is-medium">
+            <h1 class="title">Nouveau sondage</h1>
+            <form method="POST" class="">{% csrf_token %}
 
-    <h1>Nouveau sondage</h1>
-    <form method="POST" class="">{% csrf_token %}
+                <fieldset>
+                    {{GroupForm}} 
+                </fielset>
+                <section class="section">
+                <button type="submit">Créer</button>
+                </section>
+            </form>
+            <button class="button is-info"><a href="{% url 'polling:userGroups' user.groups.all.0  %}">Retour</a></button>
+        </section>
 
-        <fieldset>
-            {{GroupForm}} 
-        </fielset>
-        <button type="submit">Créer</button>
-    </form>
-
-    <button class="button is-info"><a href="{% url 'polling:userGroups' user.groups.all.0  %}">Retour</a></button>
+        
+    </div>
 {%endblock%}

@@ -22,7 +22,7 @@
         
 
         <div class="tile is-ancestor">
-        
+            <div class="tile is-parent"></div>
         {% if groupList %}
             <div class="tile is-parent is-vertical">
             {% for group in groupList %}
@@ -41,12 +41,12 @@
             {% endfor %}
             </div>
         {% else %}
-            <div class="notification is-warning">
-                <p>Vous n'avez pas encore crée de sondage</p>
-                <p>Vous pouvez créer jusqu'à trois sondages de dix questions chacuns</p>
+            <div class="tile notification is-warning">
+                <p>Vous n'avez pas encore crée de sondage.
+                Vous pouvez créer jusqu'à trois sondages de dix questions chacuns</p>
             </div>
         {% endif %}
-
+            <div class="tile is-parent"></div>
         </div>
         {% if user.is_authenticated %}
     {% comment %} </section>

@@ -145,8 +145,8 @@ def userGroupsEdit(request,user_group,group_name):
     if request.method=="POST":
         GroupForm=QuestionGroupForm(request.POST,instance=group)
         if GroupForm.is_valid():
-            instance.save()
-        return HttpResponseRedirect(reverse('polling:userGroups', args=(instance.name,)))
+            instance=GroupForm.save()
+            return HttpResponseRedirect(reverse('polling:userGroups', args=(instance.user_group,)))
     else:
         GroupForm=QuestionGroupForm(instance=group)
     return render(request, 'polling/userGroupsEdit.html', {'GroupForm':GroupForm})

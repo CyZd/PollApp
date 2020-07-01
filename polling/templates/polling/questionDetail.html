@@ -4,6 +4,24 @@
     <h1>Question {{question.question_number|add:"1" }} / {{group.question_set.count}}</h1>
     <h1 class="title">{{ question.question_text }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    
+    <div class="tile is-ancestor">
+        <div class="tile is-parent"></div>
+        <div class="tile is-parent field is-grouped">
+            <p class="control">
+                <button class="button is-link"><a href="{% url 'polling:userGroupsDetail' user_group=group.creator group_name=group.name%}">Retour</a></button>
+            </p>
+            {% if user.is_authenticated %}
+            <p class="control">
+                <button class="button is-primary"><a href="{% url 'polling:questionEdit' user_group=group.creator group_name=group.name question_id=question.id %}">Modifier la question</a></button>
+            </p>
+            <p class="control">
+                <button class="button is-danger"><a href="{% url 'polling:questionDelete' user_group=group.creator group_name=group.name question_id=question.id %}">Supprimer la question</a></button>
+            </p>
+            {%endif%}
+        </div>
+        <div class="tile is-parent"></div>
+    </div>
 
     <section class="section">
         <form class="field" action="{% url 'polling:vote' user_group=group.creator group_name=group.name question_id=question.id %}" method="post">
@@ -31,7 +49,7 @@
     {% if user.is_authenticated %}
     <section class="section has-text-centered">
         <table class="table is-striped is-hoverable">
-        <h2 class="title is-4">Résultats actuels du sondage</h2>
+        <h2 class="title is-4">Résultats du vote pour cette question</h2>
             <thead>
                 <tr>
                     <th>Choix</th>
@@ -52,13 +70,7 @@
     </section>
     {%endif%}
     
-    <button class="button is-primary"><a href="{% url 'polling:userGroupsDetail' user_group=group.creator group_name=group.name%}">Retour</a></button>
-    {% if user.is_authenticated %}
-    <button class="button is-primary"><a href="{% url 'polling:questionEdit' user_group=group.creator group_name=group.name question_id=question.id %}">Modifier la question</a></button>
-    
-    <section>
-        <button class="button is-danger"><a href="{% url 'polling:questionDelete' user_group=group.creator group_name=group.name question_id=question.id %}">Supprimer la question</a></button>
-    </section>
-    {%endif%}
+    <button class="button is-link"><a href="{% url 'polling:userGroupsDetail' user_group=group.creator group_name=group.name%}">Retour</a></button>
+
 </div>
 {%endblock%}

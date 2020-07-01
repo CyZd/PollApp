@@ -33,5 +33,6 @@
     <section class="section">
         <button class="button is-primary"><a href="{%url 'polling:questionNew'%}">Créer une nouvelle question</a></button>
     </section>
+    <button class="button is-primary"><a href="{% url 'polling:userGroupsDetail' user_group=group.creator group_name=group.name%}">Retour</a></button>
 </div>
 {% endblock %}
