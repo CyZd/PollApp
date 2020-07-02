@@ -13,6 +13,10 @@ class QuestionGroup(models.Model):
 
     def __str__(self):
         return self.name
+
+    def published_recently(self):
+        now=timezone.now()
+        return now - datetime.timedelta(days=2)<=self.pub_date <=now
     
     
 

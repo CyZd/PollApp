@@ -18,6 +18,7 @@ from django.contrib.auth.models import Group
 from django.http import Http404
 from django.utils.crypto import get_random_string
 
+
 from django.core.mail import EmailMultiAlternatives
 
 
@@ -33,6 +34,7 @@ def signup(request):
             username=form.cleaned_data.get('username')
             raw_password=form.cleaned_data.get('password1')
             user=authenticate(username=username, password=raw_password)
+            user.save()
             new_group=Group()
             new_group.name=username
             new_group.save()
@@ -130,7 +132,7 @@ def userGroupsNew(request,user_group):
         if GroupForm.is_valid():
             instance=GroupForm.save(commit=False)
             instance.creator=CurrentUser
-            currentUserGroup=QuestionGroup.objects.filter(user_group__name__exact=user_group).first()
+            instance.created=timezone.now()
             instance.user_group=CurrentUser.groups.first()
             instance.save()
         return HttpResponseRedirect(reverse('polling:userGroupsNewQuestion', args=(instance.user_group,instance.name,)))

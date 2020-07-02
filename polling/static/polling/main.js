@@ -30,3 +30,6 @@ user_input.on('keyup',function(){
 
 
 $('input[type=text]').addClass('input');
+$('input[type=password]').addClass('input');
+
+$("label:contains('Choice text')").text("Choix proposé :")

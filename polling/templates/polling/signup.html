@@ -7,10 +7,12 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
+            <section class="section">
             <button type="submit">S'enregistrer</button>
+            </section>
         </form>
 
-        <button class="button is-primary"><a href="{%url 'polling:portal'%}">Retour à l'accueil</a></button>
+        <button class="button is-link"><a href="{%url 'polling:portal'%}">Retour à l'accueil</a></button>
     </section>
 </div>
 {%endblock%}
