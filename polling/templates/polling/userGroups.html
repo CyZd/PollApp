@@ -29,9 +29,23 @@
                 <br/>
                 <section class="hoverable">
                     <a href="{%url 'polling:userGroupsDetail' user_group=group.creator  group_name=group.name%}"><div class="tile is-child notification is-primary box"><h2 class="title is-4">{{ group.name }}</h2></div></a>
+                    {% if user.is_authenticated %}
+                    <div class="has-text-centered">
+                        <p class="level-item control field">  
+                            <button class="button is-success"><a href="{%url 'polling:userGroupsEdit' user_group=group.creator  group_name=group.name%}">Modifier le sondage</a></button>
+                            <button class="button is-danger"><a href="{%url 'polling:userGroupsDelete' user_group=group.creator  group_name=group.name%}">Supprimer le sondage</a></button>
+                        </p>
+                    </div>
+                    {% endif %}
                     <div class="notification is-primary is-light box">
                         {%for question in group.question_set.all%}
                         <p>- {{question.question_text}}</p>
+                            <div class="has-text-centered">
+                                <p class="level-item control field">  
+                                    <a href="{% url 'polling:questionEdit' user_group=group.creator group_name=group.name question_id=question.id %}"><span class="tag is-success">Modifier la question</span></a>
+                                    <a href="{% url 'polling:questionDelete' user_group=group.creator group_name=group.name question_id=question.id %}"><span class="tag is-danger">Supprimer la question</span></a>
+                                </p>
+                            </div>
                         {%empty%}
                         <p>Ce sondage ne comporte aucune question pour l'instant</p>
                         {%endfor%}

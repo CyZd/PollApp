@@ -206,18 +206,26 @@ def vote(request,user_group,group_name,question_id):
 
     numberSequence=int(question.question_number)+1
 
+    invite_code=None
 
     try:
         selected_choice=question.choice_set.get(pk=request.POST['choice'])
     except(KeyError, Choice.DoesNotExist):
         error_message="Vous n'avez pas donné de réponse"
         return render(request, 'polling/questionDetail.html', {'group':group,'question':question,'error_message':error_message })
+    
+        
+    if(invite_code is None):
+        error_message="Vous avez déjà voté pour cette question"
+        return render(request, 'polling/questionDetail.html', {'group':group,'question':question,'error_message':error_message })
+
     else:
         selected_choice.votes = F('votes')+1
         selected_choice.save()
 
         nextQuestion=0
-
+        invite_code=request.session.get('invite_access_code')
+        request.session['vote_code']="{}-{}-{}-{}".format(invite_code,user_group,group_name,question_id)
         try:
             nextQuestion=Question.objects.filter(question_group=group).get(question_number=numberSequence)
         except(Question.DoesNotExist):

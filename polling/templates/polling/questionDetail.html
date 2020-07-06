@@ -8,10 +8,11 @@
     <div class="tile is-ancestor">
         <div class="tile is-parent"></div>
         <div class="tile is-parent field is-grouped">
+            {% if user.is_authenticated %}
             <p class="control">
                 <button class="button is-link"><a href="{% url 'polling:userGroupsDetail' user_group=group.creator group_name=group.name%}">Retour</a></button>
             </p>
-            {% if user.is_authenticated %}
+            
             <p class="control">
                 <button class="button is-primary"><a href="{% url 'polling:questionEdit' user_group=group.creator group_name=group.name question_id=question.id %}">Modifier la question</a></button>
             </p>
